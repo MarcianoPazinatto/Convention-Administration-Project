@@ -16,7 +16,3 @@ class Convention(db.Model):
             'name': self.name,
             'capacity': self.capacity
         }
-
-
-
-

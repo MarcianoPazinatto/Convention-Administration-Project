@@ -1,23 +1,25 @@
 from app.coffee_room.models import CoffeeRoom
 from database.repository import save, commit, delete
 from uuid import uuid4
-from typing import NoReturn
+from typing import NoReturn, List, Dict
 from app.utils import is_empty_or_none
 from exceptions import BadRequestException
+
 _LIMITE_LEN_FIELD = 36
 from app.profiles.models import Profile
+
 
 def get():
     return CoffeeRoom.query.all()
 
 
-def create(data):
+def create(data: dict) -> List[Profile]:
     validate_name(data['name'])
     validate_capacity(data['capacity'])
     return save(CoffeeRoom(id=str(uuid4()), name=data['name'], capacity=data['capacity']))
 
 
-def get_by_id(coffee_room_id):
+def get_by_id(coffee_room_id: str) -> Profile:
     validate_id_exist_in_database(coffee_room_id)
     return CoffeeRoom.query.filter_by(id=coffee_room_id).first()
 
@@ -36,7 +38,7 @@ def validate_capacity(capacity) -> NoReturn:
         raise BadRequestException(msg)
 
 
-def update(id, data):
+def update(id: str, data: Dict) -> Profile:
     coffee_room = get_by_id(id)
     coffee_room.name = data.get('name')
     coffee_room.capacity = data.get('capacity')
@@ -44,13 +46,13 @@ def update(id, data):
     return coffee_room
 
 
-def delete_coffee_room(id):
+def delete_coffee_room(id: str) -> NoReturn:
     coffee_room = get_by_id(id)
     validate_delete_coffee_room(id)
     return delete(coffee_room)
 
 
-def validate_delete_coffee_room(coffee_room_id):
+def validate_delete_coffee_room(coffee_room_id: str) -> NoReturn:
     msg: str = 'Convention table cannot be deleted, there are data in it.'
     if len(get_by_id_all_profile_in_the_same_coffee_room(coffee_room_id)) > 0:
         raise BadRequestException(msg)

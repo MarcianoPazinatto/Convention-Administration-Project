@@ -2,8 +2,6 @@ import uuid
 from database import db
 
 
-
-
 class CoffeeRoom(db.Model):
     __tablename__ = 'coffee_room'
 
