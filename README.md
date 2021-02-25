@@ -24,7 +24,7 @@ run on the IDE terminal: pipenv run flask run
 
 ## Run API
 
-Documentation
+Documentation Postman:
 https://documenter.getpostman.com/view/10706208/TWDcEZSP
 
 **Method:**
@@ -47,3 +47,18 @@ https://documenter.getpostman.com/view/10706208/TWDcEZSP
  * python 3.8
  * git 2.0
  * IDE python of your choice 
+ 
+ ## Tests
+ 1º run on the IDE terminal: 
+ 
+ **pipenv install --dev pytest-cov**
+ 
+ 2º run on the IDE terminal: 
+ 
+ **pytest --cov=app/ --cov-report=html**
+ 
+##### Result:
+
+
+
+  ![](app/utils/images/tests.PNG?raw=true)
