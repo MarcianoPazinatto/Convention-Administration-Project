@@ -1,5 +1,8 @@
 # Convention Administration Project
 
+
+Project that allows creation, alteration, visualization and deletion of profiles and convention rooms.
+
 ## Instalation
 
 1º
@@ -19,4 +22,26 @@ run on the IDE terminal: pipenv run flask run
 ![](app/utils/images/runApp.PNG?raw=true)
 
 
-## 
+## Run API
+
+Documentation
+https://documenter.getpostman.com/view/10706208/TWDcEZSP
+
+* **Method:**
+`GET` | `POST` | `DELETE` | `PATCH`
+ 
+ * http://127.0.0.1:5000/profiles
+ 
+ * http://127.0.0.1:5000/conventions
+ 
+ * http://127.0.0.1:5000/coffee-room
+ 
+ Exemplo:
+ 
+ ![](app/utils/images/getConventions.PNG?raw=true)
+ 
+ 
+ ### requirements
+ * python 3.8
+ * git 2.0
+ * IDE python of your choice 
