@@ -1,8 +1,9 @@
 from database.repository import save
 from app.coffee_room.models import CoffeeRoom
+from typing import NoReturn
 
 
-def test_model_coffe_room_return_dict(app_context):
+def test_model_coffe_room_return_dict(app_context) -> NoReturn:
     with app_context:
         # Action
         coffe_room = save(CoffeeRoom(
@@ -15,7 +16,7 @@ def test_model_coffe_room_return_dict(app_context):
         assert coffe_room.capacity == 23
 
 
-def test_coffe_room_serialize(app_context):
+def test_coffe_room_serialize(app_context) -> NoReturn:
     with app_context:
         coffe_room = save(CoffeeRoom(
             id='6b6ce977-1339-4461-9e7c-1a930a57dbdb',

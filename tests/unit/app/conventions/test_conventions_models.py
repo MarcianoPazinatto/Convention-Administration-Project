@@ -1,8 +1,9 @@
 from database.repository import save
 from app.conventions.models import Convention
+from typing import NoReturn
 
 
-def test_model_conventions_return_dict(app_context):
+def test_model_conventions_return_dict(app_context) -> NoReturn:
     with app_context:
         # Action
         conventions = save(Convention(
@@ -15,7 +16,7 @@ def test_model_conventions_return_dict(app_context):
         assert conventions.capacity == 23
 
 
-def test_conventions_serialize(app_context):
+def test_conventions_serialize(app_context) -> NoReturn:
     with app_context:
         conventions = save(Convention(
             id='6b6ce977-1339-4461-9e7c-1a930a57dbdb',

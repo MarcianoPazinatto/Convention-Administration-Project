@@ -6,9 +6,10 @@ import pytest
 from exceptions import BadRequestException
 from app.profiles.models import Profile
 from app.coffee_room.models import CoffeeRoom
+from typing import NoReturn
 
 
-def test_create_conventions(app_context, mocker):
+def test_create_conventions(app_context, mocker) -> NoReturn:
     with app_context:
         # Arrange
         mock_uuid = mocker.patch('app.conventions.actions.uuid4')
@@ -21,7 +22,7 @@ def test_create_conventions(app_context, mocker):
         assert conventions.capacity == 30
 
 
-def test_get_all_conventions(app_context):
+def test_get_all_conventions(app_context) -> NoReturn:
     with app_context:
         # Arrange
         save(Convention(
@@ -37,7 +38,7 @@ def test_get_all_conventions(app_context):
         assert isinstance(conventions[0], Convention)
 
 
-def test_get_by_id_conventions(app_context):
+def test_get_by_id_conventions(app_context) -> NoReturn:
     with app_context:
         # Arrange
         save(Convention(
@@ -53,7 +54,7 @@ def test_get_by_id_conventions(app_context):
         assert conventions.capacity == 23
 
 
-def test_validate_name(app_context):
+def test_validate_name(app_context) -> NoReturn:
     with app_context:
         with pytest.raises(BadRequestException) as ex:
             validate_name('')
@@ -61,7 +62,7 @@ def test_validate_name(app_context):
         assert (str(ex.value) == '400 Bad Request: Convention name is incorrect.')
 
 
-def test_validate_capacity(app_context):
+def test_validate_capacity(app_context) -> NoReturn:
     with app_context:
         with pytest.raises(BadRequestException) as ex:
             validate_capacity("nove")
@@ -69,7 +70,7 @@ def test_validate_capacity(app_context):
         assert (str(ex.value) == '400 Bad Request: Convention room capacity has to be an integer.')
 
 
-def test_validates_update_conventions(app_context):
+def test_validates_update_conventions(app_context) -> NoReturn:
     with app_context:
         # Arrange
         save(Convention(
@@ -85,7 +86,7 @@ def test_validates_update_conventions(app_context):
         assert conventions.capacity == 50
 
 
-def test_delete_conventions(app_context):
+def test_delete_conventions(app_context) -> NoReturn:
     with app_context:
         # Arrange
         save(Convention(
@@ -100,7 +101,7 @@ def test_delete_conventions(app_context):
         assert len(conventions) == 0
 
 
-def test_validate_delete_room(app_context):
+def test_validate_delete_room(app_context) -> NoReturn:
     with app_context:
         # Arrange
         save(CoffeeRoom(
@@ -126,7 +127,7 @@ def test_validate_delete_room(app_context):
         assert (str(ex.value) == '400 Bad Request: Convention table cannot be deleted, there are data in it.')
 
 
-def test_get_all_profile_with_same_id_convention_room(app_context):
+def test_get_all_profile_with_same_id_convention_room(app_context) -> NoReturn:
     with app_context:
         # Arrange
         save(CoffeeRoom(

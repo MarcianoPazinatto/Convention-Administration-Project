@@ -2,9 +2,10 @@ from database.repository import save
 from app.profiles.models import Profile
 from app.conventions.models import Convention
 from app.coffee_room.models import CoffeeRoom
+from typing import NoReturn
 
 
-def test_model_profile_return_dict(app_context):
+def test_model_profile_return_dict(app_context) -> NoReturn:
     with app_context:
         # Action
         save(CoffeeRoom(
@@ -32,7 +33,7 @@ def test_model_profile_return_dict(app_context):
         assert profile.conventions_id == '6b6ce977-1339-4461-9e7c-1a930a57dbdb'
 
 
-def test_profile_serialize(app_context):
+def test_profile_serialize(app_context) -> NoReturn:
     with app_context:
         save(CoffeeRoom(
             id='e3383c48-9b89-472f-9086-9cb21feaad7f',

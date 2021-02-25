@@ -8,9 +8,10 @@ from app.profiles.models import Profile
 from database.repository import save
 import pytest
 from exceptions import BadRequestException
+from typing import NoReturn
 
 
-def test_create_profile(app_context, mocker):
+def test_create_profile(app_context, mocker) -> NoReturn:
     with app_context:
         # Arrange
         save(CoffeeRoom(
@@ -38,7 +39,7 @@ def test_create_profile(app_context, mocker):
         assert profile.conventions_id == '6b6ce977-1339-4461-9e7c-1a930a57dbdb'
 
 
-def test_get_all_profiles(app_context):
+def test_get_all_profiles(app_context) -> NoReturn:
     with app_context:
         # Arrange
         save(CoffeeRoom(
@@ -66,7 +67,7 @@ def test_get_all_profiles(app_context):
         assert isinstance(profile[0], Profile)
 
 
-def test_get_by_id_profile(app_context):
+def test_get_by_id_profile(app_context) -> NoReturn:
     with app_context:
         # Arrange
         save(CoffeeRoom(
@@ -97,7 +98,7 @@ def test_get_by_id_profile(app_context):
         assert profile.coffee_room_id == 'e3383c48-9b89-472f-9086-9cb21feaad7f'
 
 
-def test_validate_name(app_context):
+def test_validate_name(app_context) -> NoReturn:
     with app_context:
 
         with pytest.raises(BadRequestException) as ex:
@@ -106,7 +107,7 @@ def test_validate_name(app_context):
         assert (str(ex.value) == '400 Bad Request: Profile name is incorrect')
 
 
-def test_validate_last_name(app_context):
+def test_validate_last_name(app_context) -> NoReturn:
     with app_context:
 
         with pytest.raises(BadRequestException) as ex:
@@ -115,7 +116,7 @@ def test_validate_last_name(app_context):
         assert (str(ex.value) == '400 Bad Request: Profile last name is incorrect')
 
 
-def test_validate_maximum_profiles_in_same_conventions_room(app_context):
+def test_validate_maximum_profiles_in_same_conventions_room(app_context) -> NoReturn:
     with app_context:
         save(CoffeeRoom(
             id='e3383c48-9b89-472f-9086-9cb21feaad7f',
@@ -146,7 +147,7 @@ def test_validate_maximum_profiles_in_same_conventions_room(app_context):
         assert (str(ex.value) == '400 Bad Request: Maximum number of profiles in same conventions room.')
 
 
-def test_validate_maximum_profiles_in_same_coffee_room(app_context):
+def test_validate_maximum_profiles_in_same_coffee_room(app_context) -> NoReturn:
     with app_context:
         save(CoffeeRoom(
             id='e3383c48-9b89-472f-9086-9cb21feaad7f',
@@ -177,7 +178,7 @@ def test_validate_maximum_profiles_in_same_coffee_room(app_context):
         assert (str(ex.value) == '400 Bad Request: Maximum number of profiles in same coffee room.')
 
 
-def test_get_by_id_all_profiles_in_the_same_coffee_room(app_context):
+def test_get_by_id_all_profiles_in_the_same_coffee_room(app_context) -> NoReturn:
     with app_context:
         save(CoffeeRoom(
             id='e3383c48-9b89-472f-9086-9cb21feaad7f',
@@ -216,7 +217,7 @@ def test_get_by_id_all_profiles_in_the_same_coffee_room(app_context):
         assert profile[1].coffee_room_id == 'e3383c48-9b89-472f-9086-9cb21feaad7f'
 
 
-def test_get_by_id_all_profiles_in_the_same_conveention_room(app_context):
+def test_get_by_id_all_profiles_in_the_same_conveention_room(app_context) -> NoReturn:
     with app_context:
         save(CoffeeRoom(
             id='e3383c48-9b89-472f-9086-9cb21feaad7f',
@@ -255,7 +256,7 @@ def test_get_by_id_all_profiles_in_the_same_conveention_room(app_context):
         assert profile[1].coffee_room_id == 'e3383c48-9b89-472f-9086-9cb21feaad7f'
 
 
-def test_update_profile(app_context):
+def test_update_profile(app_context) -> NoReturn:
     with app_context:
         # Arrange
         save(CoffeeRoom(
@@ -285,7 +286,7 @@ def test_update_profile(app_context):
         assert profile.coffee_room_id == 'e3383c48-9b89-472f-9086-9cb21feaad7f'
 
 
-def test_delete_profile(app_context):
+def test_delete_profile(app_context) -> NoReturn:
     with app_context:
         # Arrange
         save(CoffeeRoom(

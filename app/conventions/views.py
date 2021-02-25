@@ -7,32 +7,32 @@ app_conventions = Blueprint('app.conventions', __name__)
 
 
 @app_conventions.route('/conventions', methods=['GET'])
-def get():
+def get() -> tuple:
     conventions = get_convention()
     return jsonify([convention.serialize() for convention in conventions]), 200
 
 
 @app_conventions.route('/conventions', methods=['POST'])
-def post():
+def post() -> tuple:
     convention = request.get_json()
     convention_create = create_convention(convention)
     return jsonify(convention_create.serialize()), 201
 
 
 @app_conventions.route('/conventions/<id>', methods=['GET'])
-def get_by_id(id):
+def get_by_id(id: str) -> tuple:
     convention = get_by_id_convention(id)
     return jsonify(convention.serialize()), 200
 
 
 @app_conventions.route('/conventions/<id>', methods=['DELETE'])
-def delete_conventions_with_id(id):
+def delete_conventions_with_id(id: str) -> tuple:
     delete_conventions(id)
     return jsonify({}), 204
 
 
 @app_conventions.route('/conventions/<id>', methods=['PATCH'])
-def update_conventions(id):
+def update_conventions(id: str) -> tuple:
     payload = request.get_json()
     conventions = update_conventions_with_id(id, payload)
     return jsonify(conventions.serialize()), 200
