@@ -5,7 +5,7 @@ from database.repository import save
 import pytest
 from exceptions import BadRequestException
 from app.profiles.models import Profile
-from app.coffe_room.models import CoffeRoom
+from app.coffee_room.models import CoffeeRoom
 
 
 def test_create_conventions(app_context, mocker):
@@ -103,7 +103,7 @@ def test_delete_conventions(app_context):
 def test_validate_delete_room(app_context):
     with app_context:
         # Arrange
-        save(CoffeRoom(
+        save(CoffeeRoom(
             id='e3383c48-9b89-472f-9086-9cb21feaad7f',
             name='CafeClub',
             capacity=23))
@@ -118,7 +118,7 @@ def test_validate_delete_room(app_context):
             name='Jon',
             last_name='Snow',
             conventions_id='6b6ce977-1339-4461-9e7c-1a930a57dbdb',
-            coffe_room_id='e3383c48-9b89-472f-9086-9cb21feaad7f'))
+            coffee_room_id='e3383c48-9b89-472f-9086-9cb21feaad7f'))
 
         with pytest.raises(BadRequestException) as ex:
             validate_delete_conventions_room('6b6ce977-1339-4461-9e7c-1a930a57dbdb')
@@ -129,7 +129,7 @@ def test_validate_delete_room(app_context):
 def test_get_all_profile_with_same_id_convention_room(app_context):
     with app_context:
         # Arrange
-        save(CoffeRoom(
+        save(CoffeeRoom(
             id='e3383c48-9b89-472f-9086-9cb21feaad7f',
             name='CafeClub',
             capacity=23))
@@ -144,7 +144,7 @@ def test_get_all_profile_with_same_id_convention_room(app_context):
             name='Jon',
             last_name='Snow',
             conventions_id='6b6ce977-1339-4461-9e7c-1a930a57dbdb',
-            coffe_room_id='e3383c48-9b89-472f-9086-9cb21feaad7f'))
+            coffee_room_id='e3383c48-9b89-472f-9086-9cb21feaad7f'))
 
         profile = get_by_id_all_profile_in_the_same_convention_room('6b6ce977-1339-4461-9e7c-1a930a57dbdb')
 

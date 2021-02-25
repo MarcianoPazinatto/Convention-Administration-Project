@@ -1,8 +1,8 @@
 from app.profiles.actions import create, get, get_by_id, validate_name, validate_last_name,\
-    validate_maximum_profiles_in_same_coffe_room, validate_maximum_profiles_in_same_conventions_room, \
-    get_by_id_all_profile_in_the_same_coffe_room, get_by_id_all_profile_in_the_same_convention_room,\
+    validate_maximum_profiles_in_same_coffee_room, validate_maximum_profiles_in_same_conventions_room, \
+    get_by_id_all_profile_in_the_same_coffee_room, get_by_id_all_profile_in_the_same_convention_room,\
     update, delete_profiles
-from app.coffe_room.models import CoffeRoom
+from app.coffee_room.models import CoffeeRoom
 from app.conventions.models import Convention
 from app.profiles.models import Profile
 from database.repository import save
@@ -13,7 +13,7 @@ from exceptions import BadRequestException
 def test_create_profile(app_context, mocker):
     with app_context:
         # Arrange
-        save(CoffeRoom(
+        save(CoffeeRoom(
             id='e3383c48-9b89-472f-9086-9cb21feaad7f',
             name='CafeClub',
             capacity=23))
@@ -29,19 +29,19 @@ def test_create_profile(app_context, mocker):
         profile = create({ "name":"Paul",
                               "last_name": "Anka",
                               "conventions_id": "6b6ce977-1339-4461-9e7c-1a930a57dbdb",
-                              "coffe_room_id": "e3383c48-9b89-472f-9086-9cb21feaad7f"})
+                              "coffee_room_id": "e3383c48-9b89-472f-9086-9cb21feaad7f"})
         # Assert
         assert profile.id == 'd74052ac-cf9f-4baa-a49a-3993cdf0e50f'
         assert profile.name == 'Paul'
         assert profile.last_name == "Anka"
-        assert profile.coffe_room_id == 'e3383c48-9b89-472f-9086-9cb21feaad7f'
+        assert profile.coffee_room_id == 'e3383c48-9b89-472f-9086-9cb21feaad7f'
         assert profile.conventions_id == '6b6ce977-1339-4461-9e7c-1a930a57dbdb'
 
 
 def test_get_all_profiles(app_context):
     with app_context:
         # Arrange
-        save(CoffeRoom(
+        save(CoffeeRoom(
             id='e3383c48-9b89-472f-9086-9cb21feaad7f',
             name='CafeClub',
             capacity=23))
@@ -56,7 +56,7 @@ def test_get_all_profiles(app_context):
             name='Jon',
             last_name='Snow',
             conventions_id='6b6ce977-1339-4461-9e7c-1a930a57dbdb',
-            coffe_room_id='e3383c48-9b89-472f-9086-9cb21feaad7f'))
+            coffee_room_id='e3383c48-9b89-472f-9086-9cb21feaad7f'))
         # Action
         profile = get()
 
@@ -69,7 +69,7 @@ def test_get_all_profiles(app_context):
 def test_get_by_id_profile(app_context):
     with app_context:
         # Arrange
-        save(CoffeRoom(
+        save(CoffeeRoom(
             id='e3383c48-9b89-472f-9086-9cb21feaad7f',
             name='CafeClub',
             capacity=23))
@@ -84,7 +84,7 @@ def test_get_by_id_profile(app_context):
             name='Jon',
             last_name='Snow',
             conventions_id='6b6ce977-1339-4461-9e7c-1a930a57dbdb',
-            coffe_room_id='e3383c48-9b89-472f-9086-9cb21feaad7f'))
+            coffee_room_id='e3383c48-9b89-472f-9086-9cb21feaad7f'))
 
         # Actions
         profile = get_by_id('d74052ac-cf9f-4baa-a49a-3993cdf0e50f')
@@ -94,7 +94,7 @@ def test_get_by_id_profile(app_context):
         assert profile.name == 'Jon'
         assert profile.last_name == 'Snow'
         assert profile.conventions_id == '6b6ce977-1339-4461-9e7c-1a930a57dbdb'
-        assert profile.coffe_room_id == 'e3383c48-9b89-472f-9086-9cb21feaad7f'
+        assert profile.coffee_room_id == 'e3383c48-9b89-472f-9086-9cb21feaad7f'
 
 
 def test_validate_name(app_context):
@@ -117,7 +117,7 @@ def test_validate_last_name(app_context):
 
 def test_validate_maximum_profiles_in_same_conventions_room(app_context):
     with app_context:
-        save(CoffeRoom(
+        save(CoffeeRoom(
             id='e3383c48-9b89-472f-9086-9cb21feaad7f',
             name='CafeClub',
             capacity=23))
@@ -132,13 +132,13 @@ def test_validate_maximum_profiles_in_same_conventions_room(app_context):
             name='Jon',
             last_name='Snow',
             conventions_id='6b6ce977-1339-4461-9e7c-1a930a57dbdb',
-            coffe_room_id='e3383c48-9b89-472f-9086-9cb21feaad7f'))
+            coffee_room_id='e3383c48-9b89-472f-9086-9cb21feaad7f'))
         save(Profile(
             id='A74052ac-cf9f-4baa-a49a-3993cdf0e50t',
             name='Marcos',
             last_name='Nor',
             conventions_id='6b6ce977-1339-4461-9e7c-1a930a57dbdb',
-            coffe_room_id='e3383c48-9b89-472f-9086-9cb21feaad7f'))
+            coffee_room_id='e3383c48-9b89-472f-9086-9cb21feaad7f'))
 
         with pytest.raises(BadRequestException) as ex:
             validate_maximum_profiles_in_same_conventions_room('6b6ce977-1339-4461-9e7c-1a930a57dbdb', 1)
@@ -146,9 +146,9 @@ def test_validate_maximum_profiles_in_same_conventions_room(app_context):
         assert (str(ex.value) == '400 Bad Request: Maximum number of profiles in same conventions room.')
 
 
-def test_validate_maximum_profiles_in_same_coffe_room(app_context):
+def test_validate_maximum_profiles_in_same_coffee_room(app_context):
     with app_context:
-        save(CoffeRoom(
+        save(CoffeeRoom(
             id='e3383c48-9b89-472f-9086-9cb21feaad7f',
             name='CafeClub',
             capacity=23))
@@ -163,23 +163,23 @@ def test_validate_maximum_profiles_in_same_coffe_room(app_context):
             name='Jon',
             last_name='Snow',
             conventions_id='6b6ce977-1339-4461-9e7c-1a930a57dbdb',
-            coffe_room_id='e3383c48-9b89-472f-9086-9cb21feaad7f'))
+            coffee_room_id='e3383c48-9b89-472f-9086-9cb21feaad7f'))
         save(Profile(
             id='A74052ac-cf9f-4baa-a49a-3993cdf0e50t',
             name='Hanna',
             last_name='Barbara',
             conventions_id='6b6ce977-1339-4461-9e7c-1a930a57dbdb',
-            coffe_room_id='e3383c48-9b89-472f-9086-9cb21feaad7f'))
+            coffee_room_id='e3383c48-9b89-472f-9086-9cb21feaad7f'))
 
         with pytest.raises(BadRequestException) as ex:
-            validate_maximum_profiles_in_same_coffe_room('e3383c48-9b89-472f-9086-9cb21feaad7f', 1)
+            validate_maximum_profiles_in_same_coffee_room('e3383c48-9b89-472f-9086-9cb21feaad7f', 1)
 
-        assert (str(ex.value) == '400 Bad Request: Maximum number of profiles in same coffe room.')
+        assert (str(ex.value) == '400 Bad Request: Maximum number of profiles in same coffee room.')
 
 
-def test_get_by_id_all_profiles_in_the_same_coffe_room(app_context):
+def test_get_by_id_all_profiles_in_the_same_coffee_room(app_context):
     with app_context:
-        save(CoffeRoom(
+        save(CoffeeRoom(
             id='e3383c48-9b89-472f-9086-9cb21feaad7f',
             name='CafeClub',
             capacity=23))
@@ -194,31 +194,31 @@ def test_get_by_id_all_profiles_in_the_same_coffe_room(app_context):
             name='Jon',
             last_name='Snow',
             conventions_id='6b6ce977-1339-4461-9e7c-1a930a57dbdb',
-            coffe_room_id='e3383c48-9b89-472f-9086-9cb21feaad7f'))
+            coffee_room_id='e3383c48-9b89-472f-9086-9cb21feaad7f'))
         save(Profile(
             id='A74052ac-cf9f-4baa-a49a-3993cdf0e50t',
             name='Hanna',
             last_name='Barbara',
             conventions_id='6b6ce977-1339-4461-9e7c-1a930a57dbdb',
-            coffe_room_id='e3383c48-9b89-472f-9086-9cb21feaad7f'))
+            coffee_room_id='e3383c48-9b89-472f-9086-9cb21feaad7f'))
 
-        profile = get_by_id_all_profile_in_the_same_coffe_room('e3383c48-9b89-472f-9086-9cb21feaad7f')
+        profile = get_by_id_all_profile_in_the_same_coffee_room('e3383c48-9b89-472f-9086-9cb21feaad7f')
 
         assert profile[0].id == 'd74052ac-cf9f-4baa-a49a-3993cdf0e50f'
         assert profile[0].name == 'Jon'
         assert profile[0].last_name == 'Snow'
         assert profile[0].conventions_id == '6b6ce977-1339-4461-9e7c-1a930a57dbdb'
-        assert profile[0].coffe_room_id == 'e3383c48-9b89-472f-9086-9cb21feaad7f'
+        assert profile[0].coffee_room_id == 'e3383c48-9b89-472f-9086-9cb21feaad7f'
         assert profile[1].id == 'A74052ac-cf9f-4baa-a49a-3993cdf0e50t'
         assert profile[1].name == 'Hanna'
         assert profile[1].last_name == 'Barbara'
         assert profile[1].conventions_id == '6b6ce977-1339-4461-9e7c-1a930a57dbdb'
-        assert profile[1].coffe_room_id == 'e3383c48-9b89-472f-9086-9cb21feaad7f'
+        assert profile[1].coffee_room_id == 'e3383c48-9b89-472f-9086-9cb21feaad7f'
 
 
 def test_get_by_id_all_profiles_in_the_same_conveention_room(app_context):
     with app_context:
-        save(CoffeRoom(
+        save(CoffeeRoom(
             id='e3383c48-9b89-472f-9086-9cb21feaad7f',
             name='CafeClub',
             capacity=23))
@@ -233,13 +233,13 @@ def test_get_by_id_all_profiles_in_the_same_conveention_room(app_context):
             name='Jon',
             last_name='Snow',
             conventions_id='6b6ce977-1339-4461-9e7c-1a930a57dbdb',
-            coffe_room_id='e3383c48-9b89-472f-9086-9cb21feaad7f'))
+            coffee_room_id='e3383c48-9b89-472f-9086-9cb21feaad7f'))
         save(Profile(
             id='A74052ac-cf9f-4baa-a49a-3993cdf0e50t',
             name='Hanna',
             last_name='Barbara',
             conventions_id='6b6ce977-1339-4461-9e7c-1a930a57dbdb',
-            coffe_room_id='e3383c48-9b89-472f-9086-9cb21feaad7f'))
+            coffee_room_id='e3383c48-9b89-472f-9086-9cb21feaad7f'))
 
         profile = get_by_id_all_profile_in_the_same_convention_room('6b6ce977-1339-4461-9e7c-1a930a57dbdb')
 
@@ -247,18 +247,18 @@ def test_get_by_id_all_profiles_in_the_same_conveention_room(app_context):
         assert profile[0].name == 'Jon'
         assert profile[0].last_name == 'Snow'
         assert profile[0].conventions_id == '6b6ce977-1339-4461-9e7c-1a930a57dbdb'
-        assert profile[0].coffe_room_id == 'e3383c48-9b89-472f-9086-9cb21feaad7f'
+        assert profile[0].coffee_room_id == 'e3383c48-9b89-472f-9086-9cb21feaad7f'
         assert profile[1].id == 'A74052ac-cf9f-4baa-a49a-3993cdf0e50t'
         assert profile[1].name == 'Hanna'
         assert profile[1].last_name == 'Barbara'
         assert profile[1].conventions_id == '6b6ce977-1339-4461-9e7c-1a930a57dbdb'
-        assert profile[1].coffe_room_id == 'e3383c48-9b89-472f-9086-9cb21feaad7f'
+        assert profile[1].coffee_room_id == 'e3383c48-9b89-472f-9086-9cb21feaad7f'
 
 
 def test_update_profile(app_context):
     with app_context:
         # Arrange
-        save(CoffeRoom(
+        save(CoffeeRoom(
             id='e3383c48-9b89-472f-9086-9cb21feaad7f',
             name='CafeClub',
             capacity=23))
@@ -273,22 +273,22 @@ def test_update_profile(app_context):
             name='Jon',
             last_name='Snow',
             conventions_id='6b6ce977-1339-4461-9e7c-1a930a57dbdb',
-            coffe_room_id='e3383c48-9b89-472f-9086-9cb21feaad7f'))
+            coffee_room_id='e3383c48-9b89-472f-9086-9cb21feaad7f'))
         # Action
         profile = update('d74052ac-cf9f-4baa-a49a-3993cdf0e50f', {'name': 'João', 'last_name': 'Neves',
                                                         'conventions_id': '6b6ce977-1339-4461-9e7c-1a930a57dbdb',
-                                                        'coffe_room_id': 'e3383c48-9b89-472f-9086-9cb21feaad7f'})
+                                                        'coffee_room_id': 'e3383c48-9b89-472f-9086-9cb21feaad7f'})
         # Assert
         assert profile.name == 'João'
         assert profile.last_name == 'Neves'
         assert profile.conventions_id == '6b6ce977-1339-4461-9e7c-1a930a57dbdb'
-        assert profile.coffe_room_id == 'e3383c48-9b89-472f-9086-9cb21feaad7f'
+        assert profile.coffee_room_id == 'e3383c48-9b89-472f-9086-9cb21feaad7f'
 
 
 def test_delete_profile(app_context):
     with app_context:
         # Arrange
-        save(CoffeRoom(
+        save(CoffeeRoom(
             id='e3383c48-9b89-472f-9086-9cb21feaad7f',
             name='CafeClub',
             capacity=23))
@@ -303,7 +303,7 @@ def test_delete_profile(app_context):
             name='Jon',
             last_name='Snow',
             conventions_id='6b6ce977-1339-4461-9e7c-1a930a57dbdb',
-            coffe_room_id='e3383c48-9b89-472f-9086-9cb21feaad7f'))
+            coffee_room_id='e3383c48-9b89-472f-9086-9cb21feaad7f'))
         # Action
         delete_profiles('d74052ac-cf9f-4baa-a49a-3993cdf0e50f')
 

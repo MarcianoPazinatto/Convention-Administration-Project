@@ -4,13 +4,13 @@ from database import db
 
 
 
-class CoffeRoom(db.Model):
-    __tablename__ = 'coffe_room'
+class CoffeeRoom(db.Model):
+    __tablename__ = 'coffee_room'
 
     id = db.Column(db.String(36), default=str(uuid.uuid4()), primary_key=True, nullable=False, autoincrement=False)
     name = db.Column(db.String(36), nullable=False)
     capacity = db.Column(db.Integer, nullable=False)
-    profiles_id = db.relationship('Profile', uselist=False, back_populates='coffe_room')
+    profiles_id = db.relationship('Profile', uselist=False, back_populates='coffee_room')
 
     def serialize(self):
         return {

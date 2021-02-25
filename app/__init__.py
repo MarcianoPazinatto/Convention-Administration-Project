@@ -2,7 +2,7 @@ from flask import Flask, json
 from database import db, migrate
 from app.profiles.views import app_profiles
 from app.conventions.views import app_conventions
-from app.coffe_room.views import app_coffe_room
+from app.coffee_room.views import app_coffee_room
 from werkzeug.exceptions import HTTPException, InternalServerError
 
 def create_app():
@@ -20,7 +20,7 @@ def create_app():
 def _register_blueprint(app):
     app.register_blueprint(app_profiles)
     app.register_blueprint(app_conventions)
-    app.register_blueprint(app_coffe_room)
+    app.register_blueprint(app_coffee_room)
 
 
 def _handle_default_exception(e):

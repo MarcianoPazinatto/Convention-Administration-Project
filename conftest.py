@@ -2,7 +2,7 @@ import pytest
 from sqlalchemy import event
 
 from app import create_app, db
-from app.coffe_room.models import CoffeRoom
+from app.coffee_room.models import CoffeeRoom
 from app.conventions.models import Convention
 from app.profiles.models import Profile
 

@@ -48,7 +48,7 @@ def test_get_by_id_conventions(app_context) -> NoReturn:
         assert len(response) == 3
 
 
-def test_delete_coffe_room_with_id(app_context) -> NoReturn:
+def test_delete_conventions_room_with_id(app_context) -> NoReturn:
     with app_context:
         # Arrange
         id_conventions = "6b6ce977-1339-4461-9e7c-1a930a57dbdb"
@@ -64,7 +64,7 @@ def test_delete_coffe_room_with_id(app_context) -> NoReturn:
         assert request.status_code == 204
 
 
-def test_update_coffe_room(app_context) -> NoReturn:
+def test_update_conventions_room(app_context) -> NoReturn:
     with app_context:
         # Arrange
 

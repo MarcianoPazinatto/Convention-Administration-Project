@@ -1,14 +1,14 @@
 from app.profiles.models import Profile
 from typing import NoReturn
 from database.repository import save
-from app.coffe_room.models import CoffeRoom
+from app.coffee_room.models import CoffeeRoom
 from app.conventions.models import Convention
 
 
 def test_get_all_profiles(app_context) -> NoReturn:
     with app_context:
         # Arrange
-        save(CoffeRoom(
+        save(CoffeeRoom(
             id='e3383c48-9b89-472f-9086-9cb21feaad7f',
             name='CafeClub',
             capacity=23))
@@ -23,7 +23,7 @@ def test_get_all_profiles(app_context) -> NoReturn:
             name='Jon',
             last_name='Snow',
             conventions_id='6b6ce977-1339-4461-9e7c-1a930a57dbdb',
-            coffe_room_id='e3383c48-9b89-472f-9086-9cb21feaad7f'))
+            coffee_room_id='e3383c48-9b89-472f-9086-9cb21feaad7f'))
 
         test_client = app_context.app.test_client()
         # Actions
@@ -33,10 +33,11 @@ def test_get_all_profiles(app_context) -> NoReturn:
         # Assert
         assert len(response) == 1
 
+
 def test_create_profiles(app_context) -> NoReturn:
     with app_context:
         # Arrange
-        save(CoffeRoom(
+        save(CoffeeRoom(
             id='e3383c48-9b89-472f-9086-9cb21feaad7f',
             name='CafeClub',
             capacity=23))
@@ -50,7 +51,7 @@ def test_create_profiles(app_context) -> NoReturn:
             'name': 'aycon',
             'last_name': 'Jack',
             'conventions_id': '6b6ce977-1339-4461-9e7c-1a930a57dbdb',
-            'coffe_room_id': 'e3383c48-9b89-472f-9086-9cb21feaad7f'}
+            'coffee_room_id': 'e3383c48-9b89-472f-9086-9cb21feaad7f'}
         test_client = app_context.app.test_client()
 
         request = test_client.post('/profiles', json=payload)
@@ -63,7 +64,7 @@ def test_get_by_id_profile(app_context) -> NoReturn:
         # Arrange
         id_profile = "d74052ac-cf9f-4baa-a49a-3993cdf0e50f"
 
-        save(CoffeRoom(
+        save(CoffeeRoom(
             id='e3383c48-9b89-472f-9086-9cb21feaad7f',
             name='CafeClub',
             capacity=23))
@@ -78,7 +79,7 @@ def test_get_by_id_profile(app_context) -> NoReturn:
             name='Jon',
             last_name='Snow',
             conventions_id='6b6ce977-1339-4461-9e7c-1a930a57dbdb',
-            coffe_room_id='e3383c48-9b89-472f-9086-9cb21feaad7f'))
+            coffee_room_id='e3383c48-9b89-472f-9086-9cb21feaad7f'))
         test_client = app_context.app.test_client()
 
         request = test_client.get(f'/profiles/{id_profile}')
@@ -90,7 +91,7 @@ def test_get_all_profiles_with_id_convention(app_context) -> NoReturn:
     with app_context:
 
         # Arrange
-        save(CoffeRoom(
+        save(CoffeeRoom(
             id='e3383c48-9b89-472f-9086-9cb21feaad7f',
             name='CafeClub',
             capacity=23))
@@ -105,7 +106,7 @@ def test_get_all_profiles_with_id_convention(app_context) -> NoReturn:
             name='Jon',
             last_name='Snow',
             conventions_id='6b6ce977-1339-4461-9e7c-1a930a57dbdb',
-            coffe_room_id='e3383c48-9b89-472f-9086-9cb21feaad7f'))
+            coffee_room_id='e3383c48-9b89-472f-9086-9cb21feaad7f'))
         test_client = app_context.app.test_client()
 
         request = test_client.get('/convention/6b6ce977-1339-4461-9e7c-1a930a57dbdb/profiles')
@@ -115,11 +116,11 @@ def test_get_all_profiles_with_id_convention(app_context) -> NoReturn:
         assert len(response) == 1
 
 
-def test_get_all_profiles_with_id_coffe_room(app_context) -> NoReturn:
+def test_get_all_profiles_with_id_coffee_room(app_context) -> NoReturn:
     with app_context:
 
         # Arrange
-        save(CoffeRoom(
+        save(CoffeeRoom(
             id='e3383c48-9b89-472f-9086-9cb21feaad7f',
             name='CafeClub',
             capacity=23))
@@ -134,10 +135,10 @@ def test_get_all_profiles_with_id_coffe_room(app_context) -> NoReturn:
             name='Jon',
             last_name='Snow',
             conventions_id='6b6ce977-1339-4461-9e7c-1a930a57dbdb',
-            coffe_room_id='e3383c48-9b89-472f-9086-9cb21feaad7f'))
+            coffee_room_id='e3383c48-9b89-472f-9086-9cb21feaad7f'))
         test_client = app_context.app.test_client()
 
-        request = test_client.get('/coffe-room/e3383c48-9b89-472f-9086-9cb21feaad7f/profiles')
+        request = test_client.get('/coffee-room/e3383c48-9b89-472f-9086-9cb21feaad7f/profiles')
 
         response = request.get_json()
         # Assert
@@ -149,7 +150,7 @@ def test_delete_profile_with_id(app_context) -> NoReturn:
         # Arrange
         id_profile = "d74052ac-cf9f-4baa-a49a-3993cdf0e50f"
         # Arrange
-        save(CoffeRoom(
+        save(CoffeeRoom(
             id='e3383c48-9b89-472f-9086-9cb21feaad7f',
             name='CafeClub',
             capacity=23))
@@ -164,7 +165,7 @@ def test_delete_profile_with_id(app_context) -> NoReturn:
             name='Jon',
             last_name='Snow',
             conventions_id='6b6ce977-1339-4461-9e7c-1a930a57dbdb',
-            coffe_room_id='e3383c48-9b89-472f-9086-9cb21feaad7f'))
+            coffee_room_id='e3383c48-9b89-472f-9086-9cb21feaad7f'))
 
         test_client = app_context.app.test_client()
         # Action
@@ -179,7 +180,7 @@ def test_update_profile(app_context) -> NoReturn:
         # Arrange
 
         # Arrange
-        save(CoffeRoom(
+        save(CoffeeRoom(
             id='e3383c48-9b89-472f-9086-9cb21feaad7f',
             name='CafeClub',
             capacity=23))
@@ -194,10 +195,10 @@ def test_update_profile(app_context) -> NoReturn:
             name='Jon',
             last_name='Snow',
             conventions_id='6b6ce977-1339-4461-9e7c-1a930a57dbdb',
-            coffe_room_id='e3383c48-9b89-472f-9086-9cb21feaad7f'))
+            coffee_room_id='e3383c48-9b89-472f-9086-9cb21feaad7f'))
 
         payload = {'name': 'James', 'last_name': 'Junior', 'conventions_id': '6b6ce977-1339-4461-9e7c-1a930a57dbdb',
-                   'coffe_room_id':'e3383c48-9b89-472f-9086-9cb21feaad7f'}
+                   'coffee_room_id':'e3383c48-9b89-472f-9086-9cb21feaad7f'}
 
         test_client = app_context.app.test_client()
 
@@ -205,7 +206,7 @@ def test_update_profile(app_context) -> NoReturn:
         response = request.get_json()
 
         assert len(response) == 5
-        assert response == {'coffe_room_id': 'e3383c48-9b89-472f-9086-9cb21feaad7f',
+        assert response == {'coffee_room_id': 'e3383c48-9b89-472f-9086-9cb21feaad7f',
                             'conventions_id': '6b6ce977-1339-4461-9e7c-1a930a57dbdb',
                             'id': 'd74052ac-cf9f-4baa-a49a-3993cdf0e50f',
                             'last_name': 'Junior',

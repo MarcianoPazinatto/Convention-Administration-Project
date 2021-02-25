@@ -1,7 +1,7 @@
 from app.profiles.models import Profile
 from database.repository import save, commit,delete
 from uuid import uuid4
-from app.coffe_room.actions import get_by_id as get_by_id_coffe_room
+from app.coffee_room.actions import get_by_id as get_by_id_coffee_room
 from app.conventions.actions import get_by_id as get_by_id_conventions
 
 _LIMITE_LEN_FIELD = 36
@@ -16,16 +16,16 @@ def get():
 
 
 def create(data):
-    coffe_room = get_by_id_coffe_room(data['coffe_room_id'])
-    _limite_coffe_room = coffe_room.capacity
+    coffee_room = get_by_id_coffee_room(data['coffee_room_id'])
+    _limite_coffee_room = coffee_room.capacity
     conventions = get_by_id_conventions(data['conventions_id'])
     _limite_conventions = conventions.capacity
     validate_name(data['name'])
     validate_last_name(data['last_name'])
     validate_maximum_profiles_in_same_conventions_room(data['conventions_id'], _limite_conventions)
-    validate_maximum_profiles_in_same_coffe_room(data['coffe_room_id'], _limite_coffe_room)
+    validate_maximum_profiles_in_same_coffee_room(data['coffee_room_id'], _limite_coffee_room)
     return save(Profile(id=str(uuid4()), name=data['name'], last_name=data['last_name'],
-                        conventions_id=data['conventions_id'], coffe_room_id=data['coffe_room_id']))
+                        conventions_id=data['conventions_id'], coffee_room_id=data['coffee_room_id']))
 
 
 def get_by_id(profile_id):
@@ -51,18 +51,18 @@ def validate_maximum_profiles_in_same_conventions_room(_profile_conventions_id: 
     if len(_profile_saved) > _limite_conventions: raise BadRequestException(msg)
 
 
-def validate_maximum_profiles_in_same_coffe_room(_profile_coffe_room_id: str, _limite_coffe_room) -> NoReturn:
-    msg: str = f'Maximum number of profiles in same coffe room.'
-    _profile_saved = Profile.query.filter_by(coffe_room_id=_profile_coffe_room_id).all()
-    if len(_profile_saved) > _limite_coffe_room: raise BadRequestException(msg)
+def validate_maximum_profiles_in_same_coffee_room(_profile_coffee_room_id: str, _limite_coffee_room) -> NoReturn:
+    msg: str = f'Maximum number of profiles in same coffee room.'
+    _profile_saved = Profile.query.filter_by(coffee_room_id=_profile_coffee_room_id).all()
+    if len(_profile_saved) > _limite_coffee_room: raise BadRequestException(msg)
 
 
 def get_by_id_all_profile_in_the_same_convention_room(convention_id: str) -> Profile:
     return Profile.query.filter_by(conventions_id=convention_id).all()
 
 
-def get_by_id_all_profile_in_the_same_coffe_room(coffe_room_id: str) -> Profile:
-    return Profile.query.filter_by(coffe_room_id=coffe_room_id).all()
+def get_by_id_all_profile_in_the_same_coffee_room(coffee_room_id: str) -> Profile:
+    return Profile.query.filter_by(coffee_room_id=coffee_room_id).all()
 
 
 def update(id, data):
@@ -70,7 +70,7 @@ def update(id, data):
     profile.name = data.get('name')
     profile.last_name = data.get('last_name')
     profile.conventions_id = data.get('conventions_id')
-    profile.coffe_room_id = data.get('coffe_room_id')
+    profile.coffee_room_id = data.get('coffee_room_id')
     commit()
     return profile
 
