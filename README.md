@@ -27,14 +27,16 @@ run on the IDE terminal: pipenv run flask run
 Documentation
 https://documenter.getpostman.com/view/10706208/TWDcEZSP
 
-* **Method:**
+**Method:**
 `GET` | `POST` | `DELETE` | `PATCH`
  
- * http://127.0.0.1:5000/profiles
+``` 
+  http://127.0.0.1:5000/profiles
  
- * http://127.0.0.1:5000/conventions
+  http://127.0.0.1:5000/conventions
  
- * http://127.0.0.1:5000/coffee-room
+  http://127.0.0.1:5000/coffee-room
+```
  
  Exemplo:
  
