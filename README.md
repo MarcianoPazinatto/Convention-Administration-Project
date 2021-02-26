@@ -1,11 +1,11 @@
 # Convention Administration Project
 
 
-##### Project that allows creation, alteration, visualization and deletion of profiles and convention rooms.
+ Project that allows creation, alteration, visualization and deletion of profiles and convention rooms.
 
 
 
-This project used some technologies built for python. 
+##### This project used some technologies built for python. 
 
 * **SQLAlchemy**
 
