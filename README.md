@@ -38,7 +38,50 @@ https://documenter.getpostman.com/view/10706208/TWDcEZSP
   http://127.0.0.1:5000/coffee-room
 ```
  
- Exemplo:
+ ## Create Conventions
+ 
+ **URL** 
+ 
+ * **Method:** `POST` : http://127.0.0.1:5000/conventions
+ 
+ #### URL Params
+
+  * **Required:**
+  
+    
+   `name=[string]`
+   
+   
+   `capacity=[integer]`
+   
+   
+   `id=[string] - automatically generated id`
+ ##### Example Json:
+ ```
+    {
+
+        "name":"Great Room",
+
+        "capacity": 100
+
+    }
+```
+ * **Success Response:**
+
+  * **Code:** 201 <br />
+  
+    **Content:** 
+    
+    
+        {
+        
+        "capacity": 100,
+        "id": "57c4630a-cde4-4204-8532-9c91ee773048",
+        "name": "Great Room"
+        
+        }
+ 
+ Exemplo `GET` at Postman:
  
  ![](app/utils/images/getConventions.PNG?raw=true)
  
